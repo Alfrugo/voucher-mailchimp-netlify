@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export async function handler(event) {
+exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
     const email = body.email;
@@ -23,7 +23,7 @@ export async function handler(event) {
         "X-App-Token": process.env.VOUCHERIFY_APP_TOKEN
       },
       body: JSON.stringify({
-        campaign: "AMPID-FIRST-TRIP-FREE-10D",
+        campaign: "camp_dB6P28BqHvC6yWsfdgDASLt6", // IMPORTANT: use campaign ID, not name
         expiration_date: expiresAt.toISOString(),
         customer: { email },
         metadata: {
@@ -39,7 +39,10 @@ export async function handler(event) {
     if (!res.ok) {
       return {
         statusCode: res.status,
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          error: "Voucherify error",
+          details: data
+        })
       };
     }
 
@@ -53,4 +56,4 @@ export async function handler(event) {
       body: JSON.stringify({ error: err.message })
     };
   }
-}
+};
