@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 10);
 
-    const res = await fetch("https://api.voucherify.io/v1/vouchers", {
+const res = await fetch("https://us1.api.voucherify.io/v1/vouchers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
