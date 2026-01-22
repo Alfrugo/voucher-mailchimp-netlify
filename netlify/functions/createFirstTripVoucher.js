@@ -17,21 +17,16 @@ async function updateMailchimpMergeField({ email, code }) {
   const subscriberHash = md5(email.trim().toLowerCase());
   const url = `https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
 
-  const res = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      // Mailchimp uses Basic Auth; username can be anything, apiKey is the password
-      Authorization: "Basic " + Buffer.from(`anystring:${apiKey}`).toString("base64"),
-    },
-    body: JSON.stringify({
-      email_address: email,
-      status_if_new: "subscribed",
-      merge_fields: {
-        FIRSTFREE: code,
-      },
-    }),
-  });
+const res = await fetch(url, {
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Basic " + Buffer.from(`anystring:${apiKey}`).toString("base64"),
+  },
+  body: JSON.stringify({
+    merge_fields: { FIRSTFREE: code },
+  }),
+});
 
   const text = await res.text();
   let data;
