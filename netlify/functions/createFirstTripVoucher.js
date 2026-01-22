@@ -69,7 +69,7 @@ exports.handler = async (event) => {
         campaign: "camp_dB6P28BqHvC6yWsfdgDASLt6",
         expiration_date: expiresAt.toISOString(),
         customer: { email },
-        metadata: { source: "mailchimp", audience: "AMPID", offer: "first_trip_free" },
+        metadata: { source: "mailchimp", audience: "AMPIDtest", offer: "first_trip_free" },
       }),
     });
 
